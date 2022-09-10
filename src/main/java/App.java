@@ -11,6 +11,11 @@ public class App {
     public static void main(String[] args) { //type “psvm + tab” to autocreate this :)
         staticFileLocation("/public");
 
+        get("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
 
         //get: show new post form
         get("/posts/new", (req, res) -> {
@@ -29,13 +34,6 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: show all posts
-        get("/", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            ArrayList<Post> posts = Post.getAll();
-            model.put("posts", posts);
-
-            return new ModelAndView(model, "index.hbs");
-        }, new HandlebarsTemplateEngine());
 
         get("/posts", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -86,7 +84,7 @@ public class App {
         get("/posts/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             Post.clearAllPosts();
-            return new ModelAndView(model, "success.hbs");
+            return new ModelAndView(model, "layout.hbs");
         }, new HandlebarsTemplateEngine());
 
     }
