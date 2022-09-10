@@ -37,6 +37,14 @@ public class App {
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
+        get("/posts", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            ArrayList<Post> posts = Post.getAll();
+            model.put("posts", posts);
+
+            return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
         //get: show an individual post
         get("/posts/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
